@@ -33,16 +33,15 @@ const UTILS = {
     
     // Format song object from API response
     formatSong: function(item) {
-        return {
-            id: item.videoId || '',
-            title: item.title || 'Unknown Title',
-            artist: (item.author && item.author.name) ? item.author.name : 'Unknown Artist',
-            thumbnail: item.thumbnail || item.image || '/api/placeholder/300/300',
-            duration: item.seconds || (item.duration ? item.duration.seconds : 0),
-            timestamp: item.timestamp || (item.duration ? item.duration.timestamp : '0:0'),
-            videoUrl: item.url || ''
-        };
-    },
+    return {
+        id: item.link || '', // Bisa pakai link sebagai ID unik
+        title: item.title || 'Unknown Title',
+        artist: item.channel || 'Unknown Artist',
+        thumbnail: item.imageUrl || '/api/placeholder/300/300',
+        duration: item.duration || '0:00',
+        videoUrl: item.link || ''
+    };
+}
     
     // Format search results
     formatSearchResults: function(items) {
