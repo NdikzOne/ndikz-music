@@ -122,13 +122,13 @@ function displayResults(songs) {
         const needsScrolling = UTILS.needsScrolling(song.title);
         
         songCard.innerHTML = `
-            <img src="${song.imageUrl}" alt="${song.title}" class="song-thumbnail">
+            <img src="${song.thumbnail}" alt="${song.title}" class="song-thumbnail">
             <div class="song-info">
                 <div class="${needsScrolling ? 'scrolling-text' : 'song-title'}">
                     ${needsScrolling ? `<div class="scrolling-text-content">${song.title}</div>` : song.title}
                 </div>
-                <div class="song-artist">${song.channel}</div>
-                <div class="song-duration">${song.duration || '0:00'}</div>
+                <div class="song-artist">${song.artist}</div>
+                <div class="song-duration">${song.timestamp || '0:00'}</div>
             </div>
         `;
         
@@ -157,7 +157,7 @@ async function playSong(index) {
     
     try {
         // Direct API call to get MP3
-        const response = await fetch(`https://ndikz-api.vercel.app/download/ytmp3?url=${encodeURIComponent(song.link)}`);
+        const response = await fetch(`https://ndikz-api.vercel.app/download/ytmp3?url=${encodeURIComponent(song.videoUrl)}`);
         const data = await response.json();
         
         if (!data.download) {
@@ -165,7 +165,7 @@ async function playSong(index) {
         }
         
         // Update mini player UI
-        miniThumbnail.src = song.imageUrl;
+        miniThumbnail.src = song.thumbnail;
         
         // Check if title is too long for mini player
         if (UTILS.needsScrolling(song.title)) {
@@ -176,10 +176,10 @@ async function playSong(index) {
             miniTitle.textContent = song.title;
         }
         
-        miniArtist.textContent = song.channel;
+        miniArtist.textContent = song.artist;
         
         // Update full player UI
-        fullThumbnail.src = song.imageUrl;
+        fullThumbnail.src = song.thumbnail;
         
         // Check if title is too long for full player
         if (UTILS.needsScrolling(song.title, 30)) {
@@ -190,7 +190,7 @@ async function playSong(index) {
             fullTitle.textContent = song.title;
         }
         
-        fullArtist.textContent = song.channel;
+        fullArtist.textContent = song.artist;
         
         // Update play/pause icons
         const playIcon = isPlaying ? 'fa-pause' : 'fa-play';
@@ -266,14 +266,14 @@ function updateRecentlyPlayed() {
         const needsScrolling = UTILS.needsScrolling(song.title, 25);
         
         historyItem.innerHTML = `
-            <img src="${song.imageUrl}" alt="${song.title}" class="history-thumbnail">
+            <img src="${song.thumbnail}" alt="${song.title}" class="history-thumbnail">
             <div class="history-info">
                 <div class="${needsScrolling ? 'history-title scrolling-text' : 'history-title'}">
                     ${needsScrolling ? `<div class="scrolling-text-content">${song.title}</div>` : song.title}
                 </div>
-                <div class="history-artist">${song.channel}</div>
+                <div class="history-artist">${song.artist}</div>
             </div>
-            <div class="history-duration">${song.duration || '0:00'}</div>
+            <div class="history-duration">${song.timestamp || '0:00'}</div>
         `;
         
         historyItem.addEventListener('click', () => {
@@ -310,14 +310,14 @@ function updateQueue() {
             const needsScrolling = UTILS.needsScrolling(song.title);
             
             queueItem.innerHTML = `
-                <img src="${song.imageUrl}" alt="${song.title}" class="queue-thumbnail">
+                <img src="${song.thumbnail}" alt="${song.title}" class="queue-thumbnail">
                 <div class="queue-info">
                     <div class="${needsScrolling ? 'queue-title scrolling-text' : 'queue-title'}">
                         ${needsScrolling ? `<div class="scrolling-text-content">${song.title}</div>` : song.title}
                     </div>
-                    <div class="queue-artist">${song.channel}</div>
+                    <div class="queue-artist">${song.artist}</div>
                 </div>
-                <div class="queue-duration">${song.duration || '0:00'}</div>
+                <div class="queue-duration">${song.timestamp || '0:00'}</div>
             `;
             
             queueItem.addEventListener('click', () => {
@@ -446,7 +446,7 @@ function downloadCurrentSong() {
     loadingElement.style.display = 'flex';
     
     // Direct download approach
-    fetch(`https://ndikz-api.vercel.app/download/ytmp3?url=${encodeURIComponent(song.link)}`)
+    fetch(`https://ndikz-api.vercel.app/download/ytmp3?url=${encodeURIComponent(song.videoUrl)}`)
         .then(response => response.json())
         .then(data => {
             loadingElement.style.display = 'none';
