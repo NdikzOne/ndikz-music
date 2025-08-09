@@ -155,7 +155,7 @@ async function playSong(index) {
     
     try {
         // Direct API call to get MP3
-        const response = await fetch(`https://ndikz-api.vercel.app/download/ytmp3?url=${encodeURIComponent(song.videoUrl)}`);
+        const response = await fetch(`https://ndikz-api.vercel.app/download/ytmp3?url=${encodeURIComponent(song.link)}`);
         const data = await response.json();
         
         if (!data.download) {
@@ -444,7 +444,7 @@ function downloadCurrentSong() {
     loadingElement.style.display = 'flex';
     
     // Direct download approach
-    fetch(`https://ndikz-api.vercel.app/download/ytmp3?url=${encodeURIComponent(song.videoUrl)}`)
+    fetch(`https://ndikz-api.vercel.app/download/ytmp3?url=${encodeURIComponent(song.link)}`)
         .then(response => response.json())
         .then(data => {
             loadingElement.style.display = 'none';
