@@ -39,7 +39,7 @@ const UTILS = {
             artist: (item.author && item.author.name) ? item.author.name : 'Unknown Artist',
             thumbnail: item.thumbnail || item.image || '/api/placeholder/300/300',
             duration: item.seconds || (item.duration ? item.duration.seconds : 0),
-            timestamp: item.timestamp || (item.duration ? item.duration.timestamp : '0:00'),
+            timestamp: item.timestamp || (item.duration ? item.duration.timestamp : '0:0'),
             videoUrl: item.url || ''
         };
     },
