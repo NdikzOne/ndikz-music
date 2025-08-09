@@ -93,7 +93,9 @@ async function searchSongs(query) {
         }
         
         // Format and update playlist
+        console.log("API raw result:", data.result);
         currentPlaylist = UTILS.formatSearchResults(data.result);
+        console.log("After format:", currentPlaylist);
         
         // Display results
         displayResults(currentPlaylist);
