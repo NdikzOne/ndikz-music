@@ -98,7 +98,7 @@ async function searchSongs(query) {
         // Display results
         displayResults(currentPlaylist);
     } catch (error) {
-        console.error('Error fetching search results:', error);
+        console.log('Error fetching search results:', error);
         loadingElement.style.display = 'none';
         noResultsElement.style.display = 'block';
     }
@@ -208,10 +208,10 @@ async function playSong(index) {
                 addToRecentlyPlayed(song);
             })
             .catch(error => {
-                console.error('Error playing audio:', error);
+                console.log('Error playing audio:', error);
             });
     } catch (error) {
-        console.error('Error getting audio URL:', error);
+        console.log('Error getting audio URL:', error);
         alert('Failed to play this song. Please try another one.');
     } finally {
         loadingElement.style.display = 'none';
@@ -457,7 +457,7 @@ function downloadCurrentSong() {
         })
         .catch(error => {
             loadingElement.style.display = 'none';
-            console.error('Error getting MP3 download URL:', error);
+            console.log('Error getting MP3 download URL:', error);
             alert('Failed to download. Please try again later.');
         });
 }
@@ -472,7 +472,7 @@ function loadRecentlyPlayed() {
             recentlyPlayed = JSON.parse(storedRecent);
             updateRecentlyPlayed();
         } catch (e) {
-            console.error('Error parsing stored recently played:', e);
+            console.log('Error parsing stored recently played:', e);
         }
     }
 }
