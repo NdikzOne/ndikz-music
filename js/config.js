@@ -34,14 +34,15 @@ const UTILS = {
     // Format song object from API response
     formatSong: function(item) {
     return {
-        id: item.link || '', // Bisa pakai link sebagai ID unik
+        id: item.link || '', // bisa pakai link sebagai ID unik
         title: item.title || 'Unknown Title',
         artist: item.channel || 'Unknown Artist',
         thumbnail: item.imageUrl || '/api/placeholder/300/300',
-        duration: item.duration || '0:00',
+        duration: item.duration || '0:00', // tetap string seperti API kasih
+        timestamp: item.duration || '0:00', // kalau mau sama saja
         videoUrl: item.link || ''
     };
-}
+},
     
     // Format search results
     formatSearchResults: function(items) {
